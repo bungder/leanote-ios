@@ -112,7 +112,9 @@
 
     if (self.url) {
     } else {
-		self.url = [NSURL URLWithString:@"https://leanote.com"];
+//        self.url = [NSURL URLWithString:@"https://leanote.com"];
+        self.url = [NSURL URLWithString:@"https://bungder.github.io/"];
+        
 //        [self.webView loadHTMLString:self.detailHTML baseURL:];
     }
 	[self refreshWebView];
