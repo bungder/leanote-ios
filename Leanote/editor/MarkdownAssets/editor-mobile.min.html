@@ -8,7 +8,7 @@
                     <title>Leanote Markdown Editor</title>
                     <style>
                         code{
-                            font-family: "Courier New",Consolas,monospace;
+                            font-family: "Courier New",Consolas,monospace !important;
                             background-color: #f9f2f4;
                             color: #c7254e;
                             font-size: 90%;
@@ -16,7 +16,7 @@
                             border-radius: 4px;
                         }
                     pre code{
-                        font-family: Consolas,monospace;
+                        font-family: Consolas,monospace !important;
                         background-color: inherit;
                         border-radius: 0;
                         color: inherit;
@@ -24,7 +24,7 @@
                         white-space: pre-wrap;
                     }
                     pre.prettyprint * {
-                        font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑;
+                        font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑 !important;
                     }
                     blockquote {
                         border-top-right-radius: 5px;
@@ -100,11 +100,33 @@
                 $('#title').attr('placeholderText', '标题')
                 $('#wmd-input-sub').attr('placeholderText', '内容')
             }
+             function resetTitleCounter(level, secNames){
+                var targetList = $(".wmd-preview-section "+level);
+                if(undefined != targetList && null != targetList){
+                    for(var i = 0; i < targetList.length; i++){
+                        $(targetList[i].parentNode).css("counter-reset", secNames);
+                    }
+                }
+            }
+            
+             function autoNumTitle(){
+                // $($(".wmd-preview-section h1")[1].parentNode).css("counter-reset", "sec2 sec3 sec4 sec5 sec6 sec7");
+                resetTitleCounter("h1", "sec2 sec3 sec4 sec5 sec6 sec7 sec8 sec9");
+                resetTitleCounter("h2", "sec3 sec4 sec5 sec6 sec7 sec8 sec9");
+                resetTitleCounter("h3", "sec4 sec5 sec6 sec7 sec8 sec9");
+                resetTitleCounter("h4", "sec5 sec6 sec7 sec8 sec9");
+                resetTitleCounter("h5", "sec6 sec7 sec8 sec9");
+                resetTitleCounter("h6", "sec7 sec8 sec9");
+                resetTitleCounter("h7", "sec8 sec9");
+                resetTitleCounter("h8", "sec9");
+                console.log('%c counter-reset','background:#F781F3;color:#0101DF', '生效');
+            }
             
             function setTitleAndContent(title, content) {
                 document.getElementById('title').innerHTML = title;
                 ZSSEditor.getField('mdEditor').setHTML(content);
                 hostApp.loadCompleted();
+                autoNumTitle();
                 return "";
             }
             
